@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Vue Features</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Features in Vue</h1>
+        <h2>差值表达式</h2>
+        <h3>hello: {{ msg }}</h3>
+        <h3>{{ count }}</h3>
+        <h2>v-text</h2>
+        <div v-text="msg"></div>
+        <div v-text="count"></div>
+        <p>这种取值或者运算的结果值要如何处理：</p>
+        <div v-text="person.name"></div>
+        <div v-text="person.age"></div>
+        <h2>v-model</h2>
+        <div class="border">
+            <input type="text" v-model="msg" />
+            <input type="number" v-model="count" />
+        </div>
+        <div class="border">
+            <p>这种取值或者运算的结果值要如何处理：</p>
+            <label for="name">person.name</label>
+            <input type="text" v-model="person.name" />
+            <label for="age">person.age</label>
+            <input type="number" v-model="person.age" />
+        </div>
+    </div>
+    <script src="./js/observer.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/dependency.js"></script>
+    <script src="./js/watcher.js"></script>
+    <script src="./js/compiler.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello vue world!',
+                count: 100,
+                person: {
+                    name: 'huiquan',
+                    age: 19
+                }
+            }
+        })
+    </script>
+</body>
+</html>

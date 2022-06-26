@@ -1,0 +1,19 @@
+{
+  "name": "minvue",
+  "version": "1.0.0",
+  "description": "a project to implement the Vue with its min core features",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue",
+    "reactive",
+    "data",
+    "watcher",
+    "observer",
+    "dependency"
+  ],
+  "author": "denghuiquan@foxmail.com",
+  "license": "MIT"
+}
