@@ -36,10 +36,15 @@ class Compiler {
             let attrName = attr.name
             let key = attr.value
             if (this.isDirective(attrName)) {
-                // v-text -> text  v-model -> model
+                // v-text -> text  v-model -> model v-html -> html v-on:xxx -> on:xxx
                 attrName = attrName.substr(2)
-                // 交给update辅助更新方法进行处理
-                this.update(node, key, attrName)
+                if (attrName.startsWith('on')) {
+                    // 处理v-on指令注册事件监听
+                    this.onEventUpdater(node, key, attrName.substr(3))
+                } else {
+                    // 交给update辅助更新方法进行处理
+                    this.update(node, key, attrName)
+                }
                 // 首次渲染时创建watcher对象，当数据改变时更新视图
                 /* new Watcher(this.vm, key, (newVal) => {
                     this.update(node, key, attrName)
@@ -52,6 +57,18 @@ class Compiler {
             let updateFn = this[attrName + 'Updater']
             updateFn && updateFn.call(this, node, value, key)
         })
+    }
+    // 用于处理v-on directive, 实现 v-on 指令
+    onEventUpdater(node, value, eventKey) {
+        // v-on是支持监听eventKey事件，触发vm中的methods
+        // 这里的methods同样需要提前在vue实例初始化的时候把它挂在到vm对象上
+        node.addEventListener(eventKey, (e) => {
+            this.vm[value](e)
+        })
+    }
+    // 用于处理v-html directive, 实现 v-html 指令
+    htmlUpdater(node, value) {
+        node.innerHTML = value
     }
     // 用于处理v-text directive
     textUpdater(node, value) {

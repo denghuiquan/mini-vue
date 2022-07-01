@@ -14,7 +14,7 @@ class Observer {
 
     }
 
-    defineReactive(obj, key, value, predep) {
+    defineReactive(obj, key, value) {
         let self = this
         // 负责收集依赖，并在必要时发送通知
         let dep = new Dependency()

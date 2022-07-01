@@ -7,11 +7,13 @@ class Vue {
         // 01 通过属性保存选项options的数据
         this.$options = options || {}
         this.$data = options.data || {}
+        this.$methods = options.methods || {}
         this.$el = typeof options.el === 'string' ? document.querySelector(options.el) : options.el // 如果el是undefined呢？
 
         // 02 把data中的成员转换成getter/setter，注入到啊Vue实例中
         this._proxyData(this.$data)
-        // 03 调用observer对象将它数据变化
+        this._proxyData(this.$methods) // 这里是否要考虑方法属性的不可修改
+        // 03 调用observer对象将它数据变化为响应式数据
         this._oberser = new Observer(this.$data)
         // 04 调用compiler对象，解析指令/差值表达式
         this._compiler = new Compiler(this)

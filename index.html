@@ -5,6 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Min Vue Features</title>
+    <style>
+    .beauty-button {
+        padding: 5px 10px;
+        line-height: 32px;
+        font-size: 24px;
+        background-color: lightskyblue;
+    }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -30,6 +38,8 @@
             <label for="age">person.age</label>
             <input type="number" v-model="person.age" />
         </div>
+        <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+        <button class="beauty-button" v-on:click="clickHandler">click me to trigged the <code lang="javascript">v-on:click</code> handler, clicked: {{clickCount}}</button>
     </div>
     <script src="./js/observer.js"></script>
     <script src="./js/vue.js"></script>
@@ -41,12 +51,21 @@
             el: '#app',
             data: {
                 msg: 'hello vue world!',
+                clickCount: 0,
                 count: 100,
                 person: {
                     name: 'huiquan',
                     age: 19
+                },
+                rawHtml: '<span style="color: red;">this should be red.</span>'
+            },
+            methods: {
+                clickHandler(e) {
+                    this.person.name = 'ClickHandler On'
+                    this.person.age++
+                    this.clickCount++
                 }
-            }
+            },
         })
     </script>
 </body>
